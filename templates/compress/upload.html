@@ -1,0 +1,97 @@
+{% load static %}
+<html lang="en">
+	  <head>
+			<title>Multimedia</title>
+			<meta charset="utf-8">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script type="text/javascript">
+      </script>
+      <script type="text/javascript">
+        $(function () {
+
+            //when input's value changes
+            $(".myBtn").click(function (e) {
+                if($("input:file").val())
+                {
+                  $("#main_form").submit();
+                }
+                else
+                {
+                  alert("Please select file to upload");
+                  e.preventDefault();
+                };
+            });
+        });
+      </script>
+			<style>
+				#main_form{
+					padding-top: 10px;
+					padding-bottom: 10px;
+					padding-right: 0px;
+					margin-bottom: 10px;
+					-moz-box-sizing: border-box;
+					-webkit-box-sizing: border-box;
+					box-sizing: border-box;
+				}
+				.nav{
+					padding-top: 20px;
+					padding-bottom: 20px;
+				};
+
+			</style>
+    </head>
+    <body>
+			<div class="container">
+				<h2>Compression Algorithm</h2>
+				<div class='row'>			
+					<div class = 'col-md-7'>
+						<div class="row">
+							<ul class="nav nav-pills nav-fill col">
+									<li class="nav-item">
+										<a class="nav-link active" href="#">LZW</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Huffman</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Extend Huffman</a>
+									</li>
+							</ul>
+            </div>
+            <div class="row" >
+              <form class="border rounded col" id="main_form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+								<div class="form-group">
+									<label>Upload file for compress</label>
+									<input type="file" class="form-control-file" id="upload_file" name="myfile" id="fileUpload">
+								</div>
+								<div class="text-center">
+									<button type="submit" class="btn btn-success myBtn" name="load-file">Compress</button>
+									<button type="submit" class="btn btn-danger myBtn" name="load-file">Decompress</button>
+								</div>
+							</form>
+            </div>
+            <div class="row">
+              {% if uploaded_file_url %}
+							<ul class="list-group col">
+									<li class="list-group-item list-group-item-primary">Result</li>
+									<li class="list-group-item">
+                    <a href="download/{{ uploaded_file_url }}">{{ uploaded_file_url }}</a>
+										<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+									</li>
+              </ul>
+              {% endif %}
+            </div>
+            <p><a href="{% url 'index' %}">Return to home</a></p>
+					</div>
+				<div class='col-md-5'>
+				</div>
+				</div>
+			</div>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		</body>
+</html>
+
+
